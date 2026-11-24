@@ -1,0 +1,16 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: learn-accounting-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres_dev_password
+      POSTGRES_DB: learn_accounting
+    ports:
+      - "5432:5432"
+    volumes:
+      - learn_accounting_pgdata:/var/lib/postgresql/data
+
+volumes:
+  learn_accounting_pgdata:

@@ -1,0 +1,135 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy-950: #091a31;
+  --color-navy-900: #0f294a;
+  --color-navy-800: #163a66;
+  --color-navy-700: #1e4d85;
+  --color-navy-100: #e7eff8;
+  --color-navy-50: #f2f6fb;
+  --color-teal-700: #0f766e;
+  --color-teal-600: #0d9488;
+  --color-teal-100: #ccfbf1;
+  --color-teal-50: #f0fdfa;
+}
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  color: #1e293b;
+  background-color: #f8fafc;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Editorial styling for authoritative Markdown educational content */
+.academic-prose {
+  color: #334155;
+  line-height: 1.72;
+  font-size: 0.965rem;
+}
+
+.academic-prose h2 {
+  color: #0f294a;
+  font-weight: 700;
+  font-size: 1.35rem;
+  margin-top: 1.75rem;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.academic-prose h3 {
+  color: #0f294a;
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.academic-prose h4 {
+  color: #163a66;
+  font-weight: 600;
+  font-size: 0.98rem;
+  margin-top: 1.15rem;
+  margin-bottom: 0.4rem;
+}
+
+.academic-prose p {
+  margin-top: 0.65rem;
+  margin-bottom: 0.75rem;
+}
+
+.academic-prose ul,
+.academic-prose ol {
+  margin-top: 0.5rem;
+  margin-bottom: 0.9rem;
+  padding-left: 1.4rem;
+}
+
+.academic-prose ul {
+  list-style-type: disc;
+}
+
+.academic-prose ol {
+  list-style-type: decimal;
+}
+
+.academic-prose li {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+.academic-prose strong {
+  color: #0f294a;
+  font-weight: 600;
+}
+
+.academic-prose code {
+  background-color: #f1f5f9;
+  color: #0f294a;
+  padding: 0.12rem 0.36rem;
+  border-radius: 0.25rem;
+  font-size: 0.88em;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+.academic-prose pre {
+  background-color: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-left: 4px solid #0f294a;
+  border-radius: 0.5rem;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  margin: 1rem 0;
+  font-size: 0.84rem;
+  line-height: 1.5;
+  color: #0f294a;
+}
+
+.academic-prose pre code {
+  background: transparent;
+  padding: 0;
+  color: inherit;
+  font-size: inherit;
+}
+
+.academic-prose blockquote {
+  background-color: #f0fdfa;
+  border-left: 4px solid #0d9488;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0 0.5rem 0.5rem 0;
+  margin: 1rem 0;
+  color: #134e4a;
+}
+
+.academic-prose blockquote p {
+  margin: 0.25rem 0;
+}
+
+.academic-prose hr {
+  border: 0;
+  border-top: 1px solid #e2e8f0;
+  margin: 1.5rem 0;
+}

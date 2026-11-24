@@ -1,0 +1,125 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  STUDENT
+  INSTRUCTOR
+  ADMIN
+}
+
+model User {
+  id               String             @id @default(cuid())
+  name             String
+  email            String             @unique
+  passwordHash     String
+  role             UserRole           @default(STUDENT)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  sessions         Session[]
+  lessonProgress   LessonProgress[]
+  exerciseProgress ExerciseProgress[]
+  quizAttempts     QuizAttempt[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  tokenHash String   @unique
+  userId    String
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Course {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  title       String
+  description String
+  level       String
+  createdAt   DateTime  @default(now())
+  chapters    Chapter[]
+}
+
+model Chapter {
+  id               String             @id @default(cuid())
+  courseId         String
+  slug             String             @unique
+  title            String
+  description      String
+  displayOrder     Int
+  course           Course             @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  lessonProgress   LessonProgress[]
+  exerciseProgress ExerciseProgress[]
+  quizAttempts     QuizAttempt[]
+
+  @@unique([courseId, displayOrder])
+  @@index([courseId])
+}
+
+model LessonProgress {
+  id                String    @id @default(cuid())
+  userId            String
+  chapterId         String
+  completed         Boolean   @default(false)
+  completedSections String[]  @default([])
+  completedAt       DateTime?
+  updatedAt         DateTime  @updatedAt
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter           Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chapterId])
+  @@index([userId])
+  @@index([chapterId])
+}
+
+model ExerciseProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  chapterId   String
+  exerciseId  String
+  completed   Boolean   @default(false)
+  completedAt DateTime?
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter     Chapter   @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, chapterId, exerciseId])
+  @@index([userId])
+  @@index([chapterId])
+}
+
+model QuizAttempt {
+  id             String       @id @default(cuid())
+  userId         String
+  chapterId      String
+  score          Int
+  totalQuestions Int
+  percentage     Float
+  attemptedAt    DateTime     @default(now())
+  user           User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  chapter        Chapter      @relation(fields: [chapterId], references: [id], onDelete: Cascade)
+  answers        QuizAnswer[]
+
+  @@index([userId, chapterId])
+  @@index([attemptedAt])
+}
+
+model QuizAnswer {
+  id             String      @id @default(cuid())
+  attemptId      String
+  questionId     String
+  selectedOption String
+  isCorrect      Boolean
+  attempt        QuizAttempt @relation(fields: [attemptId], references: [id], onDelete: Cascade)
+
+  @@unique([attemptId, questionId])
+  @@index([attemptId])
+}
